@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Publish a page{% endblock %}
+{% block content %}
+<div class="page-title-row"><div><a class="back-link" href="{{ url_for('home') }}">← Workspace</a><h1>Publish a page</h1><p>Choose how you want to bring your page to life.</p></div></div>
+<form method="post" enctype="multipart/form-data" class="panel publish-panel">
+  <label>Page title<input name="title" maxlength="100" required placeholder="e.g. My Portfolio"></label>
+  <div class="mode-switch" role="group" aria-label="Publishing method">
+    <label class="mode-option"><input type="radio" name="mode" value="code" checked><span><b>✎ Write HTML</b><small>Paste or edit your source code</small></span></label>
+    <label class="mode-option"><input type="radio" name="mode" value="upload"><span><b>↑ Upload HTML</b><small>Choose an existing .html file</small></span></label>
+  </div>
+  <div id="code-mode" class="mode-panel">
+    <label>HTML source<textarea name="html_code" rows="13" spellcheck="false" placeholder="<!doctype html>&#10;<html>&#10;  <head><title>My page</title></head>&#10;  <body>&#10;    <h1>Hello, world!</h1>&#10;  </body>&#10;</html>"></textarea></label>
+    <p class="field-help">Use standard HTML and CSS. For safety, scripts are disabled on the public preview in this starter version.</p>
+  </div>
+  <div id="upload-mode" class="mode-panel hidden">
+    <label>HTML file<input type="file" name="html_file" accept=".html,.htm,text/html"></label>
+    <p class="field-help">Maximum HTML file size: 1 MB.</p>
+  </div>
+  <div class="asset-box"><div><b>Attach images (optional)</b><p>Up to 10 images, 2 MB each. Reference them as <code>assets/filename.png</code> in your HTML.</p></div><input type="file" name="images" accept=".png,.jpg,.jpeg,.gif,.webp,.svg,image/*" multiple></div>
+  <div class="form-actions"><a class="button button-outline" href="{{ url_for('home') }}">Cancel</a><button class="button button-primary" type="submit">Publish page <span>→</span></button></div>
+</form>
+<script>
+const modes = document.querySelectorAll('input[name="mode"]');
+const codePanel = document.getElementById('code-mode');
+const uploadPanel = document.getElementById('upload-mode');
+function updateMode() {
+  const upload = document.querySelector('input[name="mode"]:checked').value === 'upload';
+  codePanel.classList.toggle('hidden', upload);
+  uploadPanel.classList.toggle('hidden', !upload);
+  codePanel.querySelector('textarea').disabled = upload;
+  uploadPanel.querySelector('input[type="file"]').disabled = !upload;
+}
+modes.forEach(input => input.addEventListener('change', updateMode));
+updateMode();
+</script>
+{% endblock %}

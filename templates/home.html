@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Workspace{% endblock %}
+{% block content %}
+<section class="welcome-card">
+  <div class="welcome-copy"><div class="eyebrow">YOUR PUBLISHING WORKSPACE</div>
+    <h1>Good to see you, {{ user.username }}.</h1>
+    <p>PageForge lets you publish front-end HTML pages, attach images, and share each creation with its own link. Start with the editor or upload an existing HTML file.</p>
+  </div>
+  <div class="welcome-stat"><strong>{{ publication_count }}</strong><span>Your publications</span></div>
+</section>
+<section class="section-heading"><div><h2>What would you like to do?</h2><p>Choose a service to continue.</p></div></section>
+<div class="service-grid">
+  <a class="service-card service-featured" href="{{ url_for('publish') }}"><span class="service-icon">↥</span><span class="service-title">Perform publication</span><span class="service-desc">Write HTML or upload a page with its images.</span><span class="service-action">Publish a page <b>→</b></span></a>
+  <a class="service-card" href="{{ url_for('publications') }}"><span class="service-icon">▤</span><span class="service-title">View publications</span><span class="service-desc">Open, copy, and manage your published page links.</span><span class="service-action">View my pages <b>→</b></span></a>
+  <a class="service-card" href="{{ url_for('rate') }}"><span class="service-icon">☆</span><span class="service-title">Rate us</span><span class="service-desc">Tell us what works and how we can improve.</span><span class="service-action">Leave feedback <b>→</b></span></a>
+  <form class="service-card signout-card" method="post" action="{{ url_for('logout') }}"><span class="service-icon">↗</span><span class="service-title">Sign out</span><span class="service-desc">Securely end your current session.</span><button class="service-action service-action-button" type="submit">Sign out <b>→</b></button></form>
+</div>
+<div class="tip-banner"><span class="tip-dot"></span><p><strong>Quick tip</strong> — use relative image paths like <code>assets/logo.png</code> when your HTML references uploaded images.</p></div>
+{% endblock %}

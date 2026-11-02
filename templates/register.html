@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Create account{% endblock %}
+{% block content %}
+<section class="auth-layout">
+  <div class="auth-promo">
+    <div class="eyebrow">START PUBLISHING</div>
+    <h1>Your next idea<br><span>starts here.</span></h1>
+    <p>Create your free workspace and turn HTML into a page you can share.</p>
+    <div class="promo-points"><span>✓ HTML editor or file upload</span><span>✓ Image attachments</span><span>✓ Shareable publication URLs</span></div>
+  </div>
+  <div class="panel auth-panel">
+    <div class="panel-heading"><span class="eyebrow">JOIN PAGEFORGE</span><h2>Create account</h2><p>It only takes a moment to get started.</p></div>
+    <form method="post" class="form-stack">
+      <label>Username<input name="username" minlength="3" maxlength="32" autocomplete="username" required placeholder="Choose a username"></label>
+      <label>Email address<input type="email" name="email" autocomplete="email" required placeholder="you@example.com"></label>
+      <label>Password<input type="password" name="password" minlength="10" autocomplete="new-password" required placeholder="At least 10 characters"></label>
+      <label>Confirm password<input type="password" name="confirm_password" minlength="10" autocomplete="new-password" required placeholder="Enter it again"></label>
+      <button class="button button-primary button-full" type="submit">Create account <span>→</span></button>
+    </form>
+    <p class="auth-switch">Already a member? <a href="{{ url_for('login') }}">Sign in</a></p>
+  </div>
+</section>
+{% endblock %}

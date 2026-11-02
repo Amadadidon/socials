@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Published{% endblock %}
+{% block content %}
+<section class="success-panel panel">
+  <div class="success-icon">✓</div><div class="eyebrow">PUBLICATION COMPLETE</div>
+  <h1>Your page is live.</h1><p>Your HTML page has been saved. Share this link with anyone you want to view it.</p>
+  <div class="url-copy"><input id="public-url" readonly value="{{ public_url }}"><button type="button" class="button button-primary" onclick="copyUrl()">Copy link</button></div>
+  <p class="field-help">{{ saved_images }} image file(s) saved.</p>
+  <div class="form-actions centered"><a class="button button-outline" href="{{ url_for('publish') }}">Publish another</a><a class="button button-primary" target="_blank" rel="noopener" href="{{ public_url }}">Open page ↗</a></div>
+</section>
+<script>
+function copyUrl() {
+  const input = document.getElementById('public-url');
+  input.select(); input.setSelectionRange(0, 99999);
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(input.value);
+  else document.execCommand('copy');
+  const button = document.querySelector('.url-copy button');
+  button.textContent = 'Copied ✓';
+}
+</script>
+{% endblock %}

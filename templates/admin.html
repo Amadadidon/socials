@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Administration{% endblock %}
+{% block content %}
+<div class="page-title-row"><div><span class="eyebrow">RESTRICTED AREA</span><h1>Administration</h1><p>Account activity and service overview.</p></div><a class="button button-outline" href="{{ url_for('home') }}">Back to workspace</a></div>
+<div class="admin-stats">
+  <div class="admin-stat panel"><span>Total users</span><strong>{{ total_users }}</strong><small>All registered accounts</small></div>
+  <div class="admin-stat panel"><span>New users · last 30 days</span><strong>{{ new_users }}</strong><small>Since {{ month_ago.strftime('%d %b %Y') }} UTC</small></div>
+  <div class="admin-stat panel"><span>Published pages</span><strong>{{ total_publications }}</strong><small>All members</small></div>
+</div>
+<section class="panel table-panel"><div class="table-heading"><div><h2>Registered users</h2><p>Showing up to 250 most recently registered accounts.</p></div><span class="table-count">{{ users|length }} shown</span></div>
+  <div class="table-scroll"><table><thead><tr><th>Username</th><th>Email</th><th>Joined (UTC)</th><th>Pages</th></tr></thead><tbody>
+  {% for user in users %}<tr><td><strong>{{ user.username }}</strong></td><td>{{ user.email }}</td><td>{{ user.created_at.strftime('%d %b %Y') }}</td><td>{{ user.publications|length }}</td></tr>{% else %}<tr><td colspan="4">No users found.</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+<section class="panel table-panel"><div class="table-heading"><div><h2>Recent ratings</h2><p>Latest member feedback.</p></div></div>
+  <div class="table-scroll"><table><thead><tr><th>User</th><th>Score</th><th>Comment</th><th>Date (UTC)</th></tr></thead><tbody>
+  {% for rating in ratings %}<tr><td>{{ rating.user.username }}</td><td><span class="score-pill">{{ rating.score }}/5</span></td><td>{{ rating.message or '—' }}</td><td>{{ rating.created_at.strftime('%d %b %Y') }}</td></tr>{% else %}<tr><td colspan="4">No ratings yet.</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+{% endblock %}
